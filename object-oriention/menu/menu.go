@@ -12,10 +12,10 @@ type menuItem struct {
 	prices map[string]float64
 }
 
-type menu []menuItem
+var in = bufio.NewReader(os.Stdin)
 
-func (m menu) print() {
-	for _, item := range m {
+func Print() {
+	for _, item := range menu {
 		fmt.Println(item.name)
 		fmt.Println(strings.Repeat("-", 10))
 		for size, cost := range item.prices {
@@ -24,18 +24,8 @@ func (m menu) print() {
 	}
 }
 
-func (m *menu) add() {
+func Append() {
 	fmt.Println("Please enter the name of the new item")
 	name, _ := in.ReadString('\n')
-	*m = append(*m, menuItem{name: strings.TrimSpace(name), prices: make(map[string]float64)})
-}
-
-var in = bufio.NewReader(os.Stdin)
-
-func Print() {
-	data.print()
-}
-
-func Append() {
-	data.add()
+	menu = append(menu, menuItem{name: strings.TrimSpace(name), prices: make(map[string]float64)})
 }
